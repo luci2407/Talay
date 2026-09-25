@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contacto — Talay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/contacto.css">
+<link rel="icon" type="image/png" href="../pic/favicon.png">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <!-- Logo del navbar: reemplaza "logo.png" por la ruta a tu propio logo -->
+    <a href="../index.html" class="logo-mark" id="site-logo" aria-label="Talay - inicio">
+      <img src="../pic/logo.png" alt="Talay" id="nav-logo-img">
+    </a>
+    <nav class="nav-links">
+      <a href="productos.html">Categorías</a>
+      <a href="sobre-nosotros.html">Sobre nosotros</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <form class="nav-search" id="nav-search-form" role="search">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M20 20l-3.6-3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <input type="search" name="q" placeholder="Buscar en Talay..." aria-label="Buscar productos">
+    </form>
+    <div class="nav-icons">
+      <button class="icon-btn" type="button" id="btn-cart" aria-label="Carrito de compras" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 4h2l1.6 10.6a2 2 0 0 0 2 1.7h7.8a2 2 0 0 0 2-1.6L20 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="10" cy="20" r="1.4" fill="currentColor"/>
+          <circle cx="17" cy="20" r="1.4" fill="currentColor"/>
+        </svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+    <!-- Botón hamburguesa: visible solo en celular, abre el menú desplegable -->
+    <button class="nav-toggle" type="button" id="btn-menu" aria-label="Abrir menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Resumen del pedido: se muestra/oculta al hacer clic en el carrito (icono o menú móvil) -->
+  <div class="cart-panel" id="cart-panel">
+    <h4>Tu pedido</h4>
+    <p class="cart-empty" id="cart-empty">Aún no has agregado productos.</p>
+    <ul class="cart-items" id="cart-items"></ul>
+    <div class="cart-total-row" id="cart-total-row">
+      <span>Total</span>
+      <span id="cart-total">$0 MXN</span>
+    </div>
+    <button class="btn-pay" type="button" id="btn-pagar">Pagar ya</button>
+  </div>
+
+  <!-- Menú desplegable para celular -->
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href="productos.html">Categorías</a>
+    <a href="sobre-nosotros.html">Sobre nosotros</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="#" id="mobile-cart">Carrito</a>
+  </nav>
+</header>
+
+<section class="category-hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Talay · contacto</span>
+    <h1>Hablemos</h1>
+    <p class="sub">¿Dudas, sugerencias o quieres colaborar con nosotros? Escríbenos, con gusto te leemos.</p>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <form class="contact-form" id="contact-form">
+        <h4>Envíanos un mensaje</h4>
+        <label>Nombre
+          <input type="text" name="nombre" placeholder="Tu nombre completo" required>
+        </label>
+        <label>Correo electrónico
+          <input type="email" name="correo" placeholder="tu@correo.com" required>
+        </label>
+        <label>Asunto
+          <input type="text" name="asunto" placeholder="¿De qué se trata?" required>
+        </label>
+        <label>Mensaje
+          <textarea name="mensaje" rows="5" placeholder="Cuéntanos más..." required></textarea>
+        </label>
+        <button class="btn-pay btn-pay-large" type="submit">Enviar mensaje</button>
+        <p class="form-note" id="form-note"></p>
+      </form>
+
+      <div class="contact-info">
+        <h4>Otras formas de encontrarnos</h4>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h5>Correo</h5>
+            <a href="mailto:hola@talay.mx">talayshop.mx@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 15.5c0 .6-.5 1.1-1.1 1.2-2.6.3-5-.5-7-2.5s-2.8-4.4-2.5-7c.1-.6.6-1.1 1.2-1.1H12l1.5 3.5-1.5 1.5c.6 1.4 1.7 2.5 3.1 3.1l1.5-1.5L20 14v1.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h5>WhatsApp</h5>
+            <a href="#">+52 56 1174 422</a>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/>
+            </svg>
+          </div>
+          <div>
+            <h5>Ubicación</h5>
+            <p>Ciudad de México, México</p>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h5>Horario de atención</h5>
+            <p>Lunes a viernes, 10:00 AM – 6:00 PM</p>
+          </div>
+        </div>
+
+        <div class="social-row" style="margin-top:26px;">
+          <a href="https://www.instagram.com/talay.mx/" aria-label="Instagram" target="_blank">IG</a>
+          <a href="#" aria-label="TikTok" target="_blank">TT</a>
+          <a href="#" aria-label="X" target="_blank">X</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-top">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-mark">
+          <img src="../pic/logo.png" alt="Talay" id="footer-logo-img">
+        </div>
+        <p>Un espacio donde las personas vienen a encontrar un refugio en aquello que aman.</p>
+        <div class="social-row" style="margin-top:22px;">
+          <a href="https://www.instagram.com/talay.mx/" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="TikTok">TT</a>
+          <a href="#" aria-label="X">X</a>
+        </div>
+      </div>
+
+      <div class="footer-col" id="footer-sobre">
+        <h4>Sobre Talay México</h4>
+        <ul>
+          <li><a href="sobre-nosotros.html">Nuestra historia</a></li>
+          <li><a href="comunidad.html">Comunidad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col" id="footer-contacto">
+        <h4>Contáctanos</h4>
+        <ul>
+          <li><a href="mailto:talayshop.mx@gmail.com">talayshop.mx@gmail.com</a></li>
+          <li><a href="html/contacto.html">+52 56 1174 4226</a></li>
+          <li><a href="html/mi-pedido.html">Mi pedido</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Preguntas</h4>
+        <ul>
+          <li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+          <li><a href="envios-y-entregas.html">Envíos y entregas</a></li>
+          <li><a href="devoluciones-y-cambios.html">Devoluciones</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Términos y condiciones</h4>
+        <ul>
+          <li><a href="aviso-de-privacidad.html">Aviso de privacidad</a></li>
+          <li><a href="terminos-y-condiciones.html">Términos y condiciones</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Talay México. Todos los derechos reservados.</span>
+    <span>Hecho con cariño para nuestra comunidad 🌊</span>
+  </div>
+</footer>
+
+<script src="../scripts/contacto.js"></script>
+</body>
+</html>

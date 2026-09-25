@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Términos y condiciones — Talay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/terminos-y-condiciones.css">
+<link rel="icon" type="image/png" href="../pic/favicon.png">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <!-- Logo del navbar: reemplaza "logo.png" por la ruta a tu propio logo -->
+    <a href="../index.html" class="logo-mark" id="site-logo" aria-label="Talay - inicio">
+      <img src="../pic/logo.png" alt="Talay" id="nav-logo-img">
+    </a>
+    <nav class="nav-links">
+      <a href="productos.html">Categorías</a>
+      <a href="sobre-nosotros.html">Sobre nosotros</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <form class="nav-search" id="nav-search-form" role="search">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M20 20l-3.6-3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <input type="search" name="q" placeholder="Buscar en Talay..." aria-label="Buscar productos">
+    </form>
+    <div class="nav-icons">
+      <button class="icon-btn" type="button" id="btn-cart" aria-label="Carrito de compras" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 4h2l1.6 10.6a2 2 0 0 0 2 1.7h7.8a2 2 0 0 0 2-1.6L20 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="10" cy="20" r="1.4" fill="currentColor"/>
+          <circle cx="17" cy="20" r="1.4" fill="currentColor"/>
+        </svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+    <!-- Botón hamburguesa: visible solo en celular, abre el menú desplegable -->
+    <button class="nav-toggle" type="button" id="btn-menu" aria-label="Abrir menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Resumen del pedido: se muestra/oculta al hacer clic en el carrito (icono o menú móvil) -->
+  <div class="cart-panel" id="cart-panel">
+    <h4>Tu pedido</h4>
+    <p class="cart-empty" id="cart-empty">Aún no has agregado productos.</p>
+    <ul class="cart-items" id="cart-items"></ul>
+    <div class="cart-total-row" id="cart-total-row">
+      <span>Total</span>
+      <span id="cart-total">$0 MXN</span>
+    </div>
+    <button class="btn-pay" type="button" id="btn-pagar">Pagar ya</button>
+  </div>
+
+  <!-- Menú desplegable para celular -->
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href="productos.html">Categorías</a>
+    <a href="sobre-nosotros.html">Sobre nosotros</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="#" id="mobile-cart">Carrito</a>
+  </nav>
+</header>
+
+<section class="category-hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Talay · políticas</span>
+    <h1>Términos y condiciones</h1>
+    <p class="sub">Al comprar o interactuar con Talay México, aceptas los siguientes términos.</p>
+  </div>
+</section>
+
+<section class="policy-section">
+  <div class="wrap">
+    <div class="policy-list">
+
+      <div class="policy-item">
+        <div class="policy-number">1</div>
+        <p>Talay México se reserva el derecho de negar atención y servicios a cualquier cliente que muestre conductas irrespetuosas, ofensivas o inadecuadas hacia nuestro equipo o comunidad.</p>
+      </div>
+
+      <div class="policy-item">
+        <div class="policy-number">2</div>
+        <p>Queda estrictamente prohibida la reproducción total o parcial de los diseños de Talay Shop, así como su modificación, distribución o uso con fines comerciales sin nuestra autorización escrita.</p>
+      </div>
+
+      <div class="policy-item">
+        <div class="policy-number">3</div>
+        <p>Los diseños creados para productos personalizados son propiedad de Talay México y no pueden ser reproducidos ni utilizados para fines comerciales por el cliente sin autorización previa.</p>
+      </div>
+
+      <div class="policy-item">
+        <div class="policy-number">4</div>
+        <p>En caso de que un kit de evento o producto no sea recogido, este se resguardará por un periodo máximo de 3 meses a partir de la fecha del evento o notificación de disponibilidad. Transcurrido ese plazo sin que haya sido reclamado, el producto pasará a estar disponible, sin posibilidad de reclamación posterior.</p>
+      </div>
+
+    </div>
+
+    <div class="faq-cta">
+      <p>¿Tienes dudas sobre estos términos?</p>
+      <a href="contacto.html" class="btn-pay" style="display:inline-block; text-decoration:none;">Escríbenos</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-top">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-mark">
+          <img src="../pic/logo.png" alt="Talay" id="footer-logo-img">
+        </div>
+        <p>Un espacio donde las personas vienen a encontrar un refugio en aquello que aman.</p>
+        <div class="social-row" style="margin-top:22px;">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="TikTok">TT</a>
+          <a href="#" aria-label="X">X</a>
+        </div>
+      </div>
+
+      <div class="footer-col" id="footer-sobre">
+        <h4>Sobre Talay México</h4>
+        <ul>
+          <li><a href="sobre-nosotros.html">Nuestra historia</a></li>
+          <li><a href="comunidad.html">Comunidad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col" id="footer-contacto">
+        <h4>Contáctanos</h4>
+        <ul>
+          <li><a href="mailto:talayshop.mx@gmail.com">talayshop.mx@gmail.com</a></li>
+          <li><a href="html/contacto.html">+52 56 1174 4226</a></li>
+          <li><a href="html/mi-pedido.html">Mi pedido</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Preguntas</h4>
+        <ul>
+          <li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+          <li><a href="envios-y-entregas.html">Envíos y entregas</a></li>
+          <li><a href="devoluciones-y-cambios.html">Devoluciones</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Términos y condiciones</h4>
+        <ul>
+          <li><a href="aviso-de-privacidad.html">Aviso de privacidad</a></li>
+          <li><a href="terminos-y-condiciones.html">Términos y condiciones</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Talay México. Todos los derechos reservados.</span>
+    <span>Hecho con cariño para nuestra comunidad 🌊</span>
+  </div>
+</footer>
+
+<script src="../scripts/terminos-y-condiciones.js"></script>
+</body>
+</html>

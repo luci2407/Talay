@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pagar — Talay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/pago.css">
+<link rel="icon" type="image/png" href="../pic/favicon.png">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <!-- Logo del navbar: reemplaza "logo.png" por la ruta a tu propio logo -->
+    <a href="../index.html" class="logo-mark" id="site-logo" aria-label="Talay - inicio">
+      <img src="../pic/logo.png" alt="Talay" id="nav-logo-img">
+    </a>
+    <nav class="nav-links">
+      <a href="productos.html">Categorías</a>
+      <a href="sobre-nosotros.html">Sobre nosotros</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <form class="nav-search" id="nav-search-form" role="search">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M20 20l-3.6-3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <input type="search" name="q" placeholder="Buscar en Talay..." aria-label="Buscar productos">
+    </form>
+    <div class="nav-icons">
+      <button class="icon-btn" type="button" id="btn-cart" aria-label="Carrito de compras" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 4h2l1.6 10.6a2 2 0 0 0 2 1.7h7.8a2 2 0 0 0 2-1.6L20 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="10" cy="20" r="1.4" fill="currentColor"/>
+          <circle cx="17" cy="20" r="1.4" fill="currentColor"/>
+        </svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+    <!-- Botón hamburguesa: visible solo en celular, abre el menú desplegable -->
+    <button class="nav-toggle" type="button" id="btn-menu" aria-label="Abrir menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Resumen del pedido: se muestra/oculta al hacer clic en el carrito (icono o menú móvil) -->
+  <div class="cart-panel" id="cart-panel">
+    <h4>Tu pedido</h4>
+    <p class="cart-empty" id="cart-empty">Aún no has agregado productos.</p>
+    <ul class="cart-items" id="cart-items"></ul>
+    <div class="cart-total-row" id="cart-total-row">
+      <span>Total</span>
+      <span id="cart-total">$0 MXN</span>
+    </div>
+    <button class="btn-pay" type="button" id="btn-pagar">Pagar ya</button>
+  </div>
+
+  <!-- Menú desplegable para celular -->
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href="productos.html">Categorías</a>
+    <a href="sobre-nosotros.html">Sobre nosotros</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="#" id="mobile-cart">Carrito</a>
+  </nav>
+</header>
+
+<section class="category-hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Talay · pago</span>
+    <h1>Completa tu pago</h1>
+    <p class="sub">Revisa tu pedido y realiza tu pago por transferencia o depósito. Así de fácil llegará a tu casa.</p>
+  </div>
+</section>
+
+<section class="payment-page">
+  <div class="wrap">
+    <div class="payment-page-grid">
+
+      <div class="payment-left-col">
+        <div class="payment-summary-card">
+          <h4>Resumen de tu pedido</h4>
+          <p class="cart-empty" id="payment-empty">Tu carrito está vacío. Agrega productos desde la tienda antes de continuar.</p>
+          <ul class="cart-items" id="payment-items"></ul>
+          <div class="cart-total-row" id="payment-total-row">
+            <span>Total</span>
+            <span id="payment-total">$0 MXN</span>
+          </div>
+          <a href="productos.html" class="edit-order-link">← Editar mi pedido</a>
+        </div>
+
+        <!-- Datos de contacto + confirmación del pedido, en su propio cuadro -->
+        <div class="payment-summary-card" id="confirm-order-block">
+          <h4>Tus datos</h4>
+          <div class="field">
+            <label for="order-name">Nombre completo</label>
+            <input type="text" id="order-name" required>
+          </div>
+          <div class="field">
+            <label for="order-email">Correo electrónico</label>
+            <input type="email" id="order-email" required>
+          </div>
+          <button type="button" class="btn-pay" id="btn-confirm-order">Confirmar mi pedido</button>
+          <p class="form-message" id="confirm-order-message"></p>
+        </div>
+
+        <!-- Se muestra después de confirmar el pedido -->
+        <div id="order-confirmed-block" class="payment-summary-card order-confirmed-block" style="display:none;">
+          <h4>¡Pedido registrado!</h4>
+          <p>Tu número de pedido es:</p>
+          <p class="order-number" id="order-number-display"></p>
+          <p class="order-confirmed-note">Guárdalo — lo vas a necesitar para dar seguimiento a tu pedido en la página "Mi pedido".</p>
+        </div>
+      </div>
+
+      <div class="payment-info-card">
+        <h4>Datos para tu pago</h4>
+        <p class="payment-intro">
+          Puedes pagar tu pedido por <strong>transferencia bancaria</strong> o mediante
+          <strong>depósito en Oxxo</strong>, usando los siguientes datos:
+        </p>
+
+        <div class="bank-data">
+          <div class="bank-data-row">
+            <span class="bank-label">Banco</span>
+            <span class="bank-value">BBVA</span>
+          </div>
+          <div class="bank-data-row">
+            <span class="bank-label">Titular</span>
+            <span class="bank-value">Talay México</span>
+          </div>
+          <div class="bank-data-row">
+            <span class="bank-label">CLABE interbancaria</span>
+            <span class="bank-value">0000 0000 0000 0000 00</span>
+          </div>
+          <div class="bank-data-row">
+            <span class="bank-label">Número de tarjeta (Oxxo/depósito)</span>
+            <span class="bank-value">0000 0000 0000 0000</span>
+          </div>
+        </div>
+
+        <div class="payment-steps">
+          <h5>¿Cómo confirmar tu pago?</h5>
+          <ol>
+            <li>Realiza tu transferencia o depósito por el monto total de tu pedido.</li>
+            <li>Toma una foto o captura de pantalla de tu comprobante de pago.</li>
+            <li>
+              Envía el comprobante al correo
+              <a href="mailto:talayshop.mx@gmail.com">talayshop.mx@gmail.com</a>,
+              indicando tu nombre completo, tu número de pedido<span id="email-order-note"></span> y los productos de tu pedido.
+            </li>
+            <li>En cuanto confirmemos tu pago, prepararemos tu pedido para envío.</li>
+          </ol>
+        </div>
+
+        <a href="mailto:talayshop.mx@gmail.com" id="email-receipt-link" class="btn-pay btn-pay-large" style="display:block; text-align:center; text-decoration:none;">
+          Enviar comprobante por correo
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-top">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-mark">
+          <img src="../pic/logo.png" alt="Talay" id="footer-logo-img">
+        </div>
+        <p>Un espacio donde las personas vienen a encontrar un refugio en aquello que aman.</p>
+        <div class="social-row" style="margin-top:22px;">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="TikTok">TT</a>
+          <a href="#" aria-label="X">X</a>
+        </div>
+      </div>
+
+      <div class="footer-col" id="footer-sobre">
+        <h4>Sobre Talay México</h4>
+        <ul>
+          <li><a href="sobre-nosotros.html">Nuestra historia</a></li>
+          <li><a href="comunidad.html">Comunidad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col" id="footer-contacto">
+        <h4>Contáctanos</h4>
+        <ul>
+          <li><a href="mailto:talayshop.mx@gmail.com">talayshop.mx@gmail.com</a></li>
+          <li><a href="html/contacto.html">+52 56 1174 4226</a></li>
+          <li><a href="html/mi-pedido.html">Mi pedido</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Preguntas</h4>
+        <ul>
+          <li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+          <li><a href="envios-y-entregas.html">Envíos y entregas</a></li>
+          <li><a href="devoluciones-y-cambios.html">Devoluciones</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Términos y condiciones</h4>
+        <ul>
+          <li><a href="aviso-de-privacidad.html">Aviso de privacidad</a></li>
+          <li><a href="terminos-y-condiciones.html">Términos y condiciones</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Talay México. Todos los derechos reservados.</span>
+    <span>Hecho con cariño para nuestra comunidad 🌊</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../scripts/supabase-client.js"></script>
+<script src="../scripts/pago.js"></script>
+</body>
+</html>

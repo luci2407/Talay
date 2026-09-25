@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Panel de administrador — Talay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<header class="admin-header">
+  <div class="logo-mark">
+    <img src="../pic/logo.png" alt="Talay">
+    <span>talay · admin</span>
+  </div>
+  <button type="button" class="btn-logout" id="btn-logout">Cerrar sesión</button>
+</header>
+
+<nav class="admin-tabs">
+  <button type="button" class="admin-tab active" data-tab="categorias">Categorías</button>
+  <button type="button" class="admin-tab" data-tab="productos">Productos</button>
+  <button type="button" class="admin-tab" data-tab="eventos">Eventos</button>
+  <button type="button" class="admin-tab" data-tab="resenas">Reseñas</button>
+</nav>
+
+<main class="admin-main">
+
+  <!-- ============ CATEGORÍAS ============ -->
+  <section class="admin-panel active" id="panel-categorias">
+    <div class="admin-grid">
+      <div class="admin-card">
+        <h2 id="cat-form-title">Nueva categoría</h2>
+        <form id="cat-form">
+          <input type="hidden" id="cat-editing-id" value="">
+          <div class="field">
+            <label for="cat-id">ID (slug, ej. "accesorios")</label>
+            <input type="text" id="cat-id" required>
+          </div>
+          <div class="field">
+            <label for="cat-name">Nombre</label>
+            <input type="text" id="cat-name" required>
+          </div>
+          <div class="field">
+            <label for="cat-image-file">Imagen (PNG o JPG)</label>
+            <img id="cat-image-preview" class="image-preview" style="display:none;" alt="Vista previa">
+            <input type="file" id="cat-image-file" accept="image/png, image/jpeg">
+            <input type="hidden" id="cat-image-current" value="">
+          </div>
+          <div class="field">
+            <label for="cat-description">Descripción</label>
+            <input type="text" id="cat-description">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="cat-submit-btn">Guardar categoría</button>
+            <button type="button" class="btn-secondary" id="cat-cancel-btn" style="display:none;">Cancelar</button>
+          </div>
+          <p class="form-message" id="cat-message"></p>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <h2>Categorías existentes</h2>
+        <ul class="admin-list" id="cat-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTOS ============ -->
+  <section class="admin-panel" id="panel-productos">
+    <div class="admin-grid">
+      <div class="admin-card">
+        <h2 id="prod-form-title">Nuevo producto</h2>
+        <form id="prod-form">
+          <input type="hidden" id="prod-editing-id" value="">
+          <div class="field">
+            <label for="prod-id">ID (ej. "p5")</label>
+            <input type="text" id="prod-id" required>
+          </div>
+          <div class="field">
+            <label for="prod-name">Nombre</label>
+            <input type="text" id="prod-name" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="prod-price">Precio (MXN)</label>
+              <input type="number" id="prod-price" step="0.01" required>
+            </div>
+            <div class="field">
+              <label for="prod-category">Categoría</label>
+              <select id="prod-category" required></select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="prod-image-file">Imagen (PNG o JPG)</label>
+            <img id="prod-image-preview" class="image-preview" style="display:none;" alt="Vista previa">
+            <input type="file" id="prod-image-file" accept="image/png, image/jpeg">
+            <input type="hidden" id="prod-image-current" value="">
+          </div>
+          <div class="field">
+            <label for="prod-description">Descripción</label>
+            <input type="text" id="prod-description">
+          </div>
+          <div class="field">
+            <label style="display:flex; align-items:center; gap:8px; font-weight:600;">
+              <input type="checkbox" id="prod-featured" style="width:auto;">
+              Destacado (mostrar en el inicio — máx. 4)
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="prod-submit-btn">Guardar producto</button>
+            <button type="button" class="btn-secondary" id="prod-cancel-btn" style="display:none;">Cancelar</button>
+          </div>
+          <p class="form-message" id="prod-message"></p>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <h2>Productos existentes</h2>
+        <ul class="admin-list" id="prod-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVENTOS ============ -->
+  <section class="admin-panel" id="panel-eventos">
+    <div class="admin-grid">
+      <div class="admin-card">
+        <h2 id="event-form-title">Nuevo evento</h2>
+        <form id="event-form">
+          <input type="hidden" id="event-editing-id" value="">
+          <div class="field">
+            <label for="event-title">Título</label>
+            <input type="text" id="event-title" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="event-date">Fecha</label>
+              <input type="date" id="event-date" required>
+            </div>
+            <div class="field">
+              <label for="event-time">Hora (ej. 6:00 PM)</label>
+              <input type="text" id="event-time">
+            </div>
+          </div>
+          <div class="field">
+            <label for="event-location">Lugar</label>
+            <input type="text" id="event-location">
+          </div>
+          <div class="field">
+            <label for="event-registration">Link de registro</label>
+            <input type="url" id="event-registration">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="event-submit-btn">Guardar evento</button>
+            <button type="button" class="btn-secondary" id="event-cancel-btn" style="display:none;">Cancelar</button>
+          </div>
+          <p class="form-message" id="event-message"></p>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <h2>Próximos eventos</h2>
+        <ul class="admin-list" id="event-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESEÑAS ============ -->
+  <section class="admin-panel" id="panel-resenas">
+    <div class="admin-grid">
+      <div class="admin-card">
+        <h2 id="review-form-title">Nueva reseña</h2>
+        <form id="review-form">
+          <input type="hidden" id="review-editing-id" value="">
+          <div class="field">
+            <label for="review-name">Nombre del cliente</label>
+            <input type="text" id="review-name" required>
+          </div>
+          <div class="field">
+            <label for="review-rating">Calificación (1 a 5)</label>
+            <select id="review-rating" required>
+              <option value="5">★★★★★ (5)</option>
+              <option value="4">★★★★ (4)</option>
+              <option value="3">★★★ (3)</option>
+              <option value="2">★★ (2)</option>
+              <option value="1">★ (1)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="review-comment">Reseña</label>
+            <input type="text" id="review-comment" required>
+          </div>
+          <div class="field">
+            <label for="review-photo-file">Foto (opcional)</label>
+            <img id="review-photo-preview" class="image-preview" style="display:none;" alt="Vista previa">
+            <input type="file" id="review-photo-file" accept="image/png, image/jpeg">
+            <input type="hidden" id="review-photo-current" value="">
+          </div>
+          <div class="field">
+            <label style="display:flex; align-items:center; gap:8px; font-weight:600;">
+              <input type="checkbox" id="review-approved" checked style="width:auto;">
+              Visible en el sitio
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="review-submit-btn">Guardar reseña</button>
+            <button type="button" class="btn-secondary" id="review-cancel-btn" style="display:none;">Cancelar</button>
+          </div>
+          <p class="form-message" id="review-message"></p>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <h2>Reseñas</h2>
+        <ul class="admin-list" id="review-list"></ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../scripts/supabase-client.js"></script>
+<script src="admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tote bag Talay Wave — Talay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/producto.css">
+<link rel="icon" type="image/png" href="../pic/favicon.png">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <!-- Logo del navbar: reemplaza "logo.png" por la ruta a tu propio logo -->
+    <a href="../index.html" class="logo-mark" id="site-logo" aria-label="Talay - inicio">
+      <img src="../pic/logo.png" alt="Talay" id="nav-logo-img">
+    </a>
+    <nav class="nav-links">
+      <a href="productos.html">Categorías</a>
+      <a href="sobre-nosotros.html">Sobre nosotros</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <form class="nav-search" id="nav-search-form" role="search">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M20 20l-3.6-3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <input type="search" name="q" placeholder="Buscar en Talay..." aria-label="Buscar productos">
+    </form>
+    <div class="nav-icons">
+      <button class="icon-btn" type="button" id="btn-cart" aria-label="Carrito de compras" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 4h2l1.6 10.6a2 2 0 0 0 2 1.7h7.8a2 2 0 0 0 2-1.6L20 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="10" cy="20" r="1.4" fill="currentColor"/>
+          <circle cx="17" cy="20" r="1.4" fill="currentColor"/>
+        </svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+    <!-- Botón hamburguesa: visible solo en celular, abre el menú desplegable -->
+    <button class="nav-toggle" type="button" id="btn-menu" aria-label="Abrir menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Resumen del pedido: se muestra/oculta al hacer clic en el carrito (icono o menú móvil) -->
+  <div class="cart-panel" id="cart-panel">
+    <h4>Tu pedido</h4>
+    <p class="cart-empty" id="cart-empty">Aún no has agregado productos.</p>
+    <ul class="cart-items" id="cart-items"></ul>
+    <div class="cart-total-row" id="cart-total-row">
+      <span>Total</span>
+      <span id="cart-total">$0 MXN</span>
+    </div>
+    <button class="btn-pay" type="button" id="btn-pagar">Pagar ya</button>
+  </div>
+
+  <!-- Menú desplegable para celular -->
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href="productos.html">Categorías</a>
+    <a href="sobre-nosotros.html">Sobre nosotros</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="#" id="mobile-cart">Carrito</a>
+  </nav>
+</header>
+
+<div class="wrap breadcrumb">
+  <a href="productos.html">Categorías</a>
+  <span>/</span>
+  <span>Accesorios</span>
+  <span>/</span>
+  <span class="current">Tote bag Talay Wave</span>
+</div>
+
+<section class="product-detail">
+  <div class="wrap product-detail-grid">
+
+    <!-- GALERÍA: reemplaza las imágenes por las fotos reales del producto (formato 1:1) -->
+    <div class="product-gallery">
+      <div class="product-gallery-main">
+        <img src="../pic/producto-1.jpg" alt="Tote bag Talay Wave" id="gallery-main-img">
+      </div>
+      <div class="product-gallery-thumbs" id="gallery-thumbs">
+        <button type="button" class="thumb-btn active" data-img="../pic/producto-1.jpg">
+          <img src="../pic/producto-1.jpg" alt="Vista 1">
+        </button>
+        <button type="button" class="thumb-btn" data-img="../pic/producto-1-alt1.jpg">
+          <img src="../pic/producto-1-alt1.jpg" alt="Vista 2">
+        </button>
+        <button type="button" class="thumb-btn" data-img="../pic/producto-1-alt2.jpg">
+          <img src="../pic/producto-1-alt2.jpg" alt="Vista 3">
+        </button>
+      </div>
+    </div>
+
+    <!-- INFO DEL PRODUCTO: edita título, precio, descripción y variantes para cada producto -->
+    <div class="product-info-panel">
+      <span class="product-detail-tag">Accesorios</span>
+      <h1 class="product-detail-title">Tote bag Talay Wave</h1>
+      <div class="product-detail-price">$349 MXN</div>
+
+      <p class="product-detail-desc">
+        Lleva tu fandom a donde vayas con esta tote bag de lona resistente, inspirada en las olas
+        de Talay. Espacio amplio para tus esenciales del día a día, con doble asa reforzada y
+        acabado en serigrafía de alta durabilidad.
+      </p>
+
+      <div class="product-option">
+        <span class="option-label">Color</span>
+        <div class="option-swatches">
+          <button type="button" class="swatch active" style="background:#6f91d4;" aria-label="Azul"></button>
+          <button type="button" class="swatch" style="background:#fecbdb;" aria-label="Rosa"></button>
+          <button type="button" class="swatch" style="background:#080d0a;" aria-label="Negro"></button>
+        </div>
+      </div>
+
+      <div class="product-option">
+        <span class="option-label">Talla</span>
+        <div class="option-pills">
+          <button type="button" class="pill">Única</button>
+        </div>
+      </div>
+
+      <div class="product-buy-row">
+        <div class="qty-controls" id="detail-qty-controls">
+          <button type="button" class="qty-btn qty-minus" aria-label="Reducir cantidad">−</button>
+          <span class="qty-value" id="detail-qty-value">1</span>
+          <button type="button" class="qty-btn qty-plus" aria-label="Aumentar cantidad">+</button>
+        </div>
+        <button type="button" class="btn-pay btn-add-to-cart" id="btn-add-detail">Añadir al carrito</button>
+      </div>
+      <p class="add-confirmation" id="add-confirmation"></p>
+
+      <div class="product-detail-extra">
+        <div class="extra-item">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+          <span>Envíos a todo México</span>
+        </div>
+        <div class="extra-item">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12l5 5L20 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Pago por transferencia o depósito en Oxxo</span>
+        </div>
+        <div class="extra-item">
+          <a href="../html/devoluciones-y-cambios.html">Ver política de cambios y devoluciones →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-top">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-mark">
+          <img src="../pic/logo.png" alt="Talay" id="footer-logo-img">
+        </div>
+        <p>Un espacio donde las personas vienen a encontrar un refugio en aquello que aman.</p>
+        <div class="social-row" style="margin-top:22px;">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="TikTok">TT</a>
+          <a href="#" aria-label="X">X</a>
+        </div>
+      </div>
+
+      <div class="footer-col" id="footer-sobre">
+        <h4>Sobre Talay México</h4>
+        <ul>
+          <li><a href="sobre-nosotros.html">Nuestra historia</a></li>
+          <li><a href="comunidad.html">Comunidad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col" id="footer-contacto">
+        <h4>Contáctanos</h4>
+        <ul>
+          <li><a href="mailto:talayshop.mx@gmail.com">talayshop.mx@gmail.com</a></li>
+          <li><a href="html/contacto.html">+52 56 1174 4226</a></li>
+          <li><a href="html/mi-pedido.html">Mi pedido</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Preguntas</h4>
+        <ul>
+          <li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+          <li><a href="envios-y-entregas.html">Envíos y entregas</a></li>
+          <li><a href="devoluciones-y-cambios.html">Devoluciones</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Términos y condiciones</h4>
+        <ul>
+          <li><a href="aviso-de-privacidad.html">Aviso de privacidad</a></li>
+          <li><a href="terminos-y-condiciones.html">Términos y condiciones</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Talay México. Todos los derechos reservados.</span>
+    <span>Hecho con cariño para nuestra comunidad 🌊</span>
+  </div>
+</footer>
+
+<script src="../scripts/producto.js"></script>
+</body>
+</html>

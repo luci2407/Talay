@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Iniciar sesión — Panel Talay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="logo-mark">
+      <img src="../pic/logo.png" alt="Talay">
+      <span>talay · admin</span>
+    </div>
+    <h1>Panel de administrador</h1>
+    <p class="sub">Inicia sesión para gestionar categorías, productos y eventos.</p>
+
+    <form id="login-form">
+      <div class="field">
+        <label for="login-email">Correo electrónico</label>
+        <input type="email" id="login-email" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="login-password">Contraseña</label>
+        <input type="password" id="login-password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-primary" id="login-btn">Iniciar sesión</button>
+      <p class="form-message" id="login-message"></p>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../scripts/supabase-client.js"></script>
+<script src="admin-login.js"></script>
+</body>
+</html>
