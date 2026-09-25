@@ -1,239 +1,193 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Talay — Donde el mar se vuelve hogar para lo que amas</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+      <title>Talay — Donde el mar se vuelve hogar para lo que amas</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="styles.css">
+      <link rel="icon" type="image/png" href="pic/favicon.png">
+    </head>
+    <body>
 
-<header class="nav">
-  <div class="nav-inner">
-    <!-- Logo del navbar: reemplaza "pic/logo.png" por la ruta a tu propio logo -->
-    <a href="#" class="logo-mark" id="site-logo" aria-label="Talay - inicio">
-      <img src="pic/logo.png" alt="Talay" id="nav-logo-img">
-    </a>
-    <nav class="nav-links">
-      <a href="html/productos.html">Categorías</a>
-      <a href="html/sobre-nosotros.html">Sobre nosotros</a>
-      <a href="html/contacto.html">Contacto</a>
-    </nav>
-    <form class="nav-search" id="nav-search-form" role="search">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
-        <path d="M20 20l-3.6-3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-      </svg>
-      <input type="search" name="q" placeholder="Buscar en Talay..." aria-label="Buscar productos">
-    </form>
-    <div class="nav-icons">
-      <button class="icon-btn" type="button" id="btn-cart" aria-label="Carrito de compras" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 4h2l1.6 10.6a2 2 0 0 0 2 1.7h7.8a2 2 0 0 0 2-1.6L20 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="10" cy="20" r="1.4" fill="currentColor"/>
-          <circle cx="17" cy="20" r="1.4" fill="currentColor"/>
-        </svg>
-        <span class="cart-count" id="cart-count">0</span>
-      </button>
-    </div>
-    <!-- Botón hamburguesa: visible solo en celular, abre el menú desplegable -->
-    <button class="nav-toggle" type="button" id="btn-menu" aria-label="Abrir menú" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-      </svg>
-    </button>
-  </div>
-
-  <!-- Resumen del pedido: se muestra/oculta al hacer clic en el carrito (icono o menú móvil) -->
-  <div class="cart-panel" id="cart-panel">
-    <h4>Tu pedido</h4>
-    <p class="cart-empty" id="cart-empty">Aún no has agregado productos.</p>
-    <ul class="cart-items" id="cart-items"></ul>
-    <div class="cart-total-row" id="cart-total-row">
-      <span>Total</span>
-      <span id="cart-total">$0 MXN</span>
-    </div>
-    <button class="btn-pay" type="button" id="btn-pagar">Pagar ya</button>
-  </div>
-
-  <!-- Menú desplegable para celular -->
-  <nav class="mobile-menu" id="mobile-menu">
-    <a href="html/productos.html">Categorías</a>
-    <a href="html/sobre-nosotros.html">Sobre nosotros</a>
-    <a href="html/contacto.html">Contacto</a>
-    <a href="#" id="mobile-cart">Carrito</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <div class="hero-inner">
-    <div>
-      <span class="hero-eyebrow">Talay · un refugio para tus fandoms</span>
-      <h1>Donde el mar se vuelve hogar para lo que amas</h1>
-      <p class="sub">Talay es el espacio donde fans como tú encuentran experiencias, productos y comunidad alrededor de lo que aman. Bienvenido a casa.</p>
-      <div class="hero-btns">
-        <button class="btn-primary" type="button" id="btn-descubre">Descubre la tienda</button>
-        <a href="#resenas" class="btn-ghost">Ver comunidad</a>
+    <header class="nav">
+      <div class="nav-inner">
+        <!-- Logo del navbar: reemplaza "pic/logo.png" por la ruta a tu propio logo -->
+        <a href="#" class="logo-mark" id="site-logo" aria-label="Talay - inicio">
+          <img src="pic/logo.png" alt="Talay" id="nav-logo-img">
+        </a>
+        <nav class="nav-links">
+          <a href="html/productos.html">Categorías</a>
+          <a href="html/sobre-nosotros.html">Sobre nosotros</a>
+          <a href="html/contacto.html">Contacto</a>
+        </nav>
+        <form class="nav-search" id="nav-search-form" role="search">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M20 20l-3.6-3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <input type="search" name="q" placeholder="Buscar en Talay..." aria-label="Buscar productos">
+        </form>
+        <div class="nav-icons">
+          <button class="icon-btn" type="button" id="btn-cart" aria-label="Carrito de compras" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 4h2l1.6 10.6a2 2 0 0 0 2 1.7h7.8a2 2 0 0 0 2-1.6L20 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="10" cy="20" r="1.4" fill="currentColor"/>
+              <circle cx="17" cy="20" r="1.4" fill="currentColor"/>
+            </svg>
+            <span class="cart-count" id="cart-count">0</span>
+          </button>
+        </div>
+        <!-- Botón hamburguesa: visible solo en celular, abre el menú desplegable -->
+        <button class="nav-toggle" type="button" id="btn-menu" aria-label="Abrir menú" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
       </div>
-    </div>
-    <div class="hero-image-wrap">
-      <!-- Imagen del hero: reemplaza "pic/hero.jpg" por tu propia foto (formato 1:1) -->
-      <img src="pic/hero.jpg" alt="Talay" id="hero-image">
-      <svg viewBox="0 0 400 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 270 C 60 240, 110 300, 170 280 S 280 240, 400 290 V400 H0 Z" fill="rgba(255,255,245,0.14)"/>
-        <path d="M0 320 C 70 300, 130 340, 190 320 S 300 290, 400 330 V400 H0 Z" fill="rgba(255,255,245,0.22)"/>
-      </svg>
-    </div>
-  </div>
-  <div class="wave-divider">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 40 C 240 90, 480 0, 720 40 C 960 80, 1200 0, 1440 40 V90 H0 Z" fill="#FFFFF5"/>
-    </svg>
-  </div>
-</section>
 
-<section class="products" id="productos">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>ENCUENTRA TU FAVORITO</h2>
-      <p>Piezas pensadas para acompañarte todos los días: del closet al concierto, del escritorio a tu próxima maratón.</p>
-    </div>
-
-    <!-- Se llena dinámicamente con hasta 4 productos marcados como "Destacado" desde el panel -->
-    <div class="product-grid" id="featured-product-grid"></div>
-    <p class="cart-empty" id="featured-empty" style="display:none; text-align:center;">
-      Marca hasta 4 productos como "Destacado" desde el panel de administrador para mostrarlos aquí.
-    </p>
-
-    <div class="explore-wrap">
-      <button class="btn-explore" type="button" id="btn-explora-mas">
-        Tu próximo refugio está a un clic de distancia
-      </button>
-    </div>
-  </div>
-</section>
-
-<section class="reviews" id="resenas">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Nuestra comunidad lo dice mejor</h2>
-      <p>Historias reales de quienes ya encontraron su refugio en Talay.</p>
-    </div>
-    <!-- Se llena dinámicamente con las reseñas más recientes desde Supabase -->
-    <div class="review-grid" id="review-grid"></div>
-    <div class="explore-wrap">
-      <a href="html/comunidad.html" class="btn-explore" style="text-decoration:none; display:inline-block;">Ver toda la comunidad →</a>
-    </div>
-  </div>
-</section>
-
-<section class="events" id="eventos">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Nuestros próximos eventos</h2>
-      <p>Encuentros, lanzamientos y experiencias pensadas para vivirlas junto a tu comunidad.</p>
-    </div>
-    <!-- Se llena dinámicamente con los eventos guardados desde el panel de administrador -->
-    <div class="events-grid" id="events-grid"></div>
-    <p class="cart-empty" id="events-empty" style="display:none; text-align:center;">
-      Todavía no hay eventos programados. ¡Vuelve pronto!
-    </p>
-  </div>
-</section>
-
-<!-- Ventana rápida de producto: se llena dinámicamente desde window.TALAY_PRODUCTS -->
-<div class="quick-view-overlay" id="quick-view-overlay">
-  <div class="quick-view-modal" role="dialog" aria-modal="true" aria-labelledby="qv-title">
-    <button type="button" class="quick-view-close" id="quick-view-close" aria-label="Cerrar">✕</button>
-    <div class="quick-view-grid">
-      <div class="quick-view-media">
-        <img src="" alt="" id="qv-image">
+      <!-- Resumen del pedido: se muestra/oculta al hacer clic en el carrito (icono o menú móvil) -->
+      <div class="cart-panel" id="cart-panel">
+        <h4>Tu pedido</h4>
+        <p class="cart-empty" id="cart-empty">Aún no has agregado productos.</p>
+        <ul class="cart-items" id="cart-items"></ul>
+        <div class="cart-total-row" id="cart-total-row">
+          <span>Total</span>
+          <span id="cart-total">$0 MXN</span>
+        </div>
+        <button class="btn-pay" type="button" id="btn-pagar">Pagar ya</button>
       </div>
-      <div class="quick-view-info">
-        <span class="product-detail-tag" id="qv-category"></span>
-        <h3 id="qv-title"></h3>
-        <div class="product-detail-price" id="qv-price"></div>
-        <p class="quick-view-desc" id="qv-description"></p>
 
-        <div class="product-buy-row">
-          <div class="qty-controls" id="qv-qty-controls">
-            <button type="button" class="qty-btn qty-minus" aria-label="Reducir cantidad">−</button>
-            <span class="qty-value" id="qv-qty-value">1</span>
-            <button type="button" class="qty-btn qty-plus" aria-label="Aumentar cantidad">+</button>
+      <!-- Menú desplegable para celular -->
+      <nav class="mobile-menu" id="mobile-menu">
+        <a href="html/productos.html">Categorías</a>
+        <a href="html/sobre-nosotros.html">Sobre nosotros</a>
+        <a href="html/contacto.html">Contacto</a>
+        <a href="#" id="mobile-cart">Carrito</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <span class="hero-eyebrow">Talay · un refugio para tus fandoms</span>
+          <h1>Donde el mar se vuelve hogar para lo que amas</h1>
+          <p class="sub">Talay es el espacio donde fans como tú encuentran experiencias, productos y comunidad alrededor de lo que aman. Bienvenido a casa.</p>
+          <div class="hero-btns">
+            <button class="btn-primary" type="button" id="btn-descubre">Descubre la tienda</button>
+            <a href="html/comunidad.html" class="btn-ghost">Ver comunidad</a>
           </div>
-          <button type="button" class="btn-pay btn-add-to-cart" id="qv-add-btn">Añadir al carrito</button>
         </div>
-        <p class="add-confirmation" id="qv-confirmation"></p>
+        <div class="hero-image-wrap">
+          <!-- Imagen del hero: reemplaza "pic/hero.jpg" por tu propia foto (formato 1:1) -->
+          <img src="pic/hero.jpg" alt="Talay" id="hero-image">
+          <svg viewBox="0 0 400 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 270 C 60 240, 110 300, 170 280 S 280 240, 400 290 V400 H0 Z" fill="rgba(255,255,245,0.14)"/>
+            <path d="M0 320 C 70 300, 130 340, 190 320 S 300 290, 400 330 V400 H0 Z" fill="rgba(255,255,245,0.22)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="wave-divider">
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 40 C 240 90, 480 0, 720 40 C 960 80, 1200 0, 1440 40 V90 H0 Z" fill="#FFFFF5"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="products" id="productos">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>ENCUENTRA TU FAVORITO</h2>
+          <p>Piezas pensadas para acompañarte todos los días.</p>
+        </div>
+
+        <div class="product-grid" id="featured-product-grid"></div>
+        <p class="cart-empty" id="featured-empty" style="display:none; text-align:center;">
+          Marca hasta 4 productos como "Destacado" desde el panel de administrador para mostrarlos aquí.
+        </p>
+
+        <div class="explore-wrap">
+          <button class="btn-explore" type="button" id="btn-explora-mas">
+            Tu próximo refugio está a un clic de distancia
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews" id="resenas">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Nuestra comunidad lo dice mejor</h2>
+          <p>Historias reales de quienes ya encontraron su refugio en Talay.</p>
+        </div>
+
+        <div class="review-grid" id="review-grid"></div>
+        <p class="cart-empty" id="review-grid-empty" style="display:none; text-align:center;">
+          Marca hasta 3 reseñas como "Destacado" desde el panel de administrador para mostrarlas aquí.
+        </p>
+        <div class="explore-wrap">
+          <a href="html/comunidad.html" class="btn-explore" style="text-decoration:none; display:inline-block;">Ver toda la comunidad →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="events" id="eventos">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Nuestros próximos eventos</h2>
+          <p>Encuentros y experiencias pensadas para vivir tu lado fan al máximo.</p>
+        </div>
+        <!-- Se llena dinámicamente con los eventos guardados desde el panel de administrador -->
+        <div class="events-grid" id="events-grid"></div>
+        <p class="cart-empty" id="events-empty" style="display:none; text-align:center;">
+          Todavía no hay eventos programados. ¡Vuelve pronto!
+        </p>
+      </div>
+    </section>
+
+    <!-- Ventana rápida de producto: se llena dinámicamente desde window.TALAY_PRODUCTS -->
+    <div class="quick-view-overlay" id="quick-view-overlay">
+      <div class="quick-view-modal" role="dialog" aria-modal="true" aria-labelledby="qv-title">
+        <button type="button" class="quick-view-close" id="quick-view-close" aria-label="Cerrar">✕</button>
+        <div class="quick-view-grid">
+          <div class="quick-view-media">
+            <img src="" alt="" id="qv-image">
+          </div>
+          <div class="quick-view-info">
+            <span class="product-detail-tag" id="qv-category"></span>
+            <h3 id="qv-title"></h3>
+            <div class="product-detail-price" id="qv-price"></div>
+            <p class="quick-view-desc" id="qv-description"></p>
+
+            <div class="product-buy-row">
+              <div class="qty-controls" id="qv-qty-controls">
+                <button type="button" class="qty-btn qty-minus" aria-label="Reducir cantidad">−</button>
+                <span class="qty-value" id="qv-qty-value">1</span>
+                <button type="button" class="qty-btn qty-plus" aria-label="Aumentar cantidad">+</button>
+              </div>
+              <button type="button" class="btn-pay btn-add-to-cart" id="qv-add-btn">Añadir al carrito</button>
+            </div>
+            <p class="add-confirmation" id="qv-confirmation"></p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<footer>
-  <div class="wrap footer-top">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo-mark">
-          <img src="pic/logo.png" alt="Talay" id="footer-logo-img">
-        </div>
-        <p>Un espacio donde las personas vienen a encontrar un refugio en aquello que aman.</p>
-        <div class="social-row" style="margin-top:22px;">
-          <a href="#" aria-label="Instagram">IG</a>
-          <a href="#" aria-label="TikTok">TT</a>
-          <a href="#" aria-label="X">X</a>
-        </div>
-      </div>
+    <footer id="site-footer"></footer>
+    <script>
+      fetch('partials/footer-root.html')
+        .then(function (res) { return res.text(); })
+        .then(function (html) { document.getElementById('site-footer').outerHTML = html; })
+        .catch(function (err) { console.error('No se pudo cargar el footer:', err); });
+    </script>
 
-      <div class="footer-col" id="footer-sobre">
-        <h4>Sobre Talay México</h4>
-        <ul>
-          <li><a href="html/sobre-nosotros.html">Nuestra historia</a></li>
-          <li><a href="html/comunidad.html">Comunidad</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col" id="footer-contacto">
-        <h4>Contáctanos</h4>
-        <ul>
-          <li><a href="mailto:hola@talay.mx">hola@talay.mx</a></li>
-          <li><a href="html/contacto.html">WhatsApp</a></li>
-          <li><a href="html/mi-pedido.html">Mi pedido</a></li>
-          <li><a href="#">Redes sociales</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Preguntas</h4>
-        <ul>
-          <li><a href="html/preguntas-frecuentes.html">Preguntas frecuentes</a></li>
-          <li><a href="html/envios-y-entregas.html">Envíos y entregas</a></li>
-          <li><a href="html/devoluciones-y-cambios.html">Devoluciones</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Términos y condiciones</h4>
-        <ul>
-          <li><a href="html/aviso-de-privacidad.html">Aviso de privacidad</a></li>
-          <li><a href="html/terminos-y-condiciones.html">Términos y condiciones</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="wrap footer-bottom">
-    <span>© 2026 Talay México. Todos los derechos reservados.</span>
-    <span>Hecho con cariño para nuestra comunidad 🌊</span>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="scripts/supabase-client.js"></script>
-<script src="scripts/products-data.js"></script>
-<script src="scripts/reviews-data.js"></script>
-<script src="scripts/events-data.js"></script>
-<script src="script.js"></script>
-</body>
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="scripts/supabase-client.js"></script>
+    <script src="scripts/products-data.js"></script>
+    <script src="scripts/reviews-data.js"></script>
+    <script src="scripts/events-data.js"></script>
+    <script src="script.js"></script>
+    </body>
+  </html>

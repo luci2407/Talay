@@ -20,7 +20,7 @@ window.TALAY_PRODUCTS = [];
 
     var result = await client
       .from('products')
-      .select('id, name, price, category_id, image, description, categories ( name )');
+      .select('id, name, price, category_id, image, description, featured, categories ( name )');
 
     if (result.error) throw result.error;
 
@@ -32,7 +32,8 @@ window.TALAY_PRODUCTS = [];
         categoryId: row.category_id,
         category: row.categories ? row.categories.name : '',
         image: row.image,
-        description: row.description
+        description: row.description,
+        featured: !!row.featured
       };
     });
   } catch (err) {

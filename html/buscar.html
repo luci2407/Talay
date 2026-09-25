@@ -127,61 +127,13 @@
   </div>
 </div>
 
-<footer>
-  <div class="wrap footer-top">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo-mark">
-          <img src="../pic/logo.png" alt="Talay" id="footer-logo-img">
-        </div>
-        <p>Un espacio donde las personas vienen a encontrar un refugio en aquello que aman.</p>
-        <div class="social-row" style="margin-top:22px;">
-          <a href="#" aria-label="Instagram">IG</a>
-          <a href="#" aria-label="TikTok">TT</a>
-          <a href="#" aria-label="X">X</a>
-        </div>
-      </div>
-
-      <div class="footer-col" id="footer-sobre">
-        <h4>Sobre Talay México</h4>
-        <ul>
-          <li><a href="sobre-nosotros.html">Nuestra historia</a></li>
-          <li><a href="comunidad.html">Comunidad</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col" id="footer-contacto">
-        <h4>Contáctanos</h4>
-        <ul>
-          <li><a href="mailto:talayshop.mx@gmail.com">talayshop.mx@gmail.com</a></li>
-          <li><a href="html/contacto.html">+52 56 1174 4226</a></li>
-          <li><a href="html/mi-pedido.html">Mi pedido</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Preguntas</h4>
-        <ul>
-          <li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
-          <li><a href="envios-y-entregas.html">Envíos y entregas</a></li>
-          <li><a href="devoluciones-y-cambios.html">Devoluciones</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Términos y condiciones</h4>
-        <ul>
-          <li><a href="aviso-de-privacidad.html">Aviso de privacidad</a></li>
-          <li><a href="terminos-y-condiciones.html">Términos y condiciones</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="wrap footer-bottom">
-    <span>© 2026 Talay México. Todos los derechos reservados.</span>
-    <span>Hecho con cariño para nuestra comunidad 🌊</span>
-  </div>
-</footer>
+<footer id="site-footer"></footer>
+<script>
+  fetch('../partials/footer.html')
+    .then(function (res) { return res.text(); })
+    .then(function (html) { document.getElementById('site-footer').outerHTML = html; })
+    .catch(function (err) { console.error('No se pudo cargar el footer:', err); });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="../scripts/supabase-client.js"></script>
