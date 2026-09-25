@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!cartPanel) return;
     if (cartPanel.classList.contains('open') &&
         !cartPanel.contains(e.target) &&
-        e.target !== btnCart) {
+        !e.target.closest('#btn-cart, #mobile-cart')) {
       toggleCartPanel(false);
     }
   });

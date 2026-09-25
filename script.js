@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!cartPanel) return;
     if (cartPanel.classList.contains('open') &&
         !cartPanel.contains(e.target) &&
-        e.target !== btnCart) {
+        !e.target.closest('#btn-cart, #mobile-cart')) {
       toggleCartPanel(false);
     }
   });
@@ -264,17 +264,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // -------- Reseñas de la comunidad (una sola plantilla, datos desde Supabase) --------
   // reviews-data.js pide las reseñas aprobadas a Supabase; aquí solo mostramos
-  // las 3 más recientes. La página "Comunidad" muestra el listado completo.
+  // las marcadas como "Destacado" (máx. 3). La página "Comunidad" muestra el listado completo.
   var reviewGrid = document.getElementById('review-grid');
+  var reviewGridEmpty = document.getElementById('review-grid-empty');
 
   function renderReviewGrid() {
     if (!reviewGrid) return;
-    var reviews = (window.TALAY_REVIEWS || []).slice(0, 3);
+    var reviews = (window.TALAY_REVIEWS || []).filter(function (r) { return r.featured; }).slice(0, 3);
 
     if (reviews.length === 0) {
       reviewGrid.innerHTML = '';
+      if (reviewGridEmpty) reviewGridEmpty.style.display = 'block';
       return;
     }
+    if (reviewGridEmpty) reviewGridEmpty.style.display = 'none';
 
     reviewGrid.innerHTML = reviews.map(function (review, index) {
       var initial = review.customer_name ? review.customer_name.charAt(0).toUpperCase() : '?';
