@@ -35,12 +35,13 @@ button{font-family:inherit;}
 .login-card .sub{font-size:0.88rem; color:rgba(8,13,10,0.6); margin-bottom:26px;}
 .field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px;}
 .field label{font-size:0.82rem; font-weight:700;}
-.field input{
+.field input, .field textarea{
   font-family:inherit; font-size:0.94rem; padding:12px 14px; border-radius:12px;
   border:1px solid rgba(8,13,10,0.15); outline:none; color:var(--ink);
   transition:border-color .2s ease;
 }
-.field input:focus{border-color:var(--blue);}
+.field textarea{resize:vertical; line-height:1.5;}
+.field input:focus, .field textarea:focus{border-color:var(--blue);}
 .image-preview{
   width:100%; max-width:180px; aspect-ratio:1/1; object-fit:cover; border-radius:14px;
   background:var(--sky); margin-bottom:4px;
