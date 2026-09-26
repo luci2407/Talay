@@ -681,6 +681,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   var pickupForm = document.getElementById('pickup-date-form');
   var pickupList = document.getElementById('pickup-date-list');
   var pickupDateInput = document.getElementById('pickup-date-input');
+  var pickupTimeInput = document.getElementById('pickup-time-input');
+  var pickupLocationInput = document.getElementById('pickup-location-input');
   var pickupSubmitBtn = document.getElementById('pickup-date-submit-btn');
   var pickupMessage = document.getElementById('pickup-date-message');
 
@@ -697,9 +699,15 @@ document.addEventListener('DOMContentLoaded', async function () {
           var label = new Date(d.pickup_date + 'T00:00:00').toLocaleDateString('es-MX', {
             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
           });
+          var details = [];
+          if (d.pickup_time) details.push(d.pickup_time);
+          if (d.location) details.push(d.location);
+          var detailsHtml = details.length
+            ? '<div class="row-sub">' + details.join(' · ') + '</div>'
+            : '';
           return (
             '<li class="admin-row" data-id="' + d.id + '">' +
-              '<div class="row-info"><div class="row-title">' + label + '</div></div>' +
+              '<div class="row-info"><div class="row-title">' + label + '</div>' + detailsHtml + '</div>' +
               '<div class="row-actions">' +
                 '<button type="button" class="icon-action danger delete-pickup-date" aria-label="Borrar">✕</button>' +
               '</div>' +
@@ -724,12 +732,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   pickupForm.addEventListener('submit', async function (e) {
     e.preventDefault();
-    if (!pickupDateInput.value) return;
+    if (!pickupDateInput.value || !pickupTimeInput.value || !pickupLocationInput.value) return;
 
     pickupSubmitBtn.disabled = true;
     pickupSubmitBtn.textContent = 'Guardando…';
 
-    var result = await client.from('pickup_dates').insert({ pickup_date: pickupDateInput.value });
+    var result = await client.from('pickup_dates').insert({
+      pickup_date: pickupDateInput.value,
+      pickup_time: pickupTimeInput.value,
+      location: pickupLocationInput.value
+    });
 
     pickupSubmitBtn.disabled = false;
     pickupSubmitBtn.textContent = 'Agregar fecha';
@@ -743,10 +755,116 @@ document.addEventListener('DOMContentLoaded', async function () {
     loadPickupDates();
   });
 
+  // ============================================================
+  // PEDIDOS
+  // ============================================================
+  var orderList = document.getElementById('order-list');
+
+  var orderStatusLabels = {
+    pendiente: 'Pendiente de pago',
+    pagado: 'Pagado',
+    enviado: 'Enviado',
+    cancelado: 'Cancelado'
+  };
+
+  var deliveryLabels = {
+    envio: 'Envío (Correos de México)',
+    personal: 'Entrega personal'
+  };
+
+  async function loadOrders() {
+    var ordersResult = await client
+      .from('orders')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (ordersResult.error) {
+      orderList.innerHTML = '<li class="admin-empty">No se pudieron cargar los pedidos.</li>';
+      return;
+    }
+    var orders = ordersResult.data || [];
+
+    if (orders.length === 0) {
+      orderList.innerHTML = '<li class="admin-empty">Todavía no hay pedidos.</li>';
+      return;
+    }
+
+    var orderIds = orders.map(function (o) { return o.id; });
+    var itemsResult = await client
+      .from('order_items')
+      .select('*')
+      .in('order_id', orderIds);
+
+    var itemsByOrder = {};
+    (itemsResult.data || []).forEach(function (item) {
+      if (!itemsByOrder[item.order_id]) itemsByOrder[item.order_id] = [];
+      itemsByOrder[item.order_id].push(item);
+    });
+
+    orderList.innerHTML = orders.map(function (o) {
+      var items = itemsByOrder[o.id] || [];
+      var itemsHtml = items.length
+        ? items.map(function (it) {
+            return it.quantity + '× ' + it.product_name;
+          }).join(', ')
+        : 'Sin productos registrados';
+
+      var createdLabel = o.created_at
+        ? new Date(o.created_at).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })
+        : '';
+
+      var deliveryInfo = deliveryLabels[o.delivery_method] || o.delivery_method || '—';
+      if (o.delivery_method === 'personal' && o.pickup_date) {
+        var pickupLabel = new Date(o.pickup_date + 'T00:00:00').toLocaleDateString('es-MX', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+        deliveryInfo += ' — ' + pickupLabel;
+        var extra = [];
+        if (o.pickup_time) extra.push(o.pickup_time);
+        if (o.pickup_location) extra.push(o.pickup_location);
+        if (extra.length) deliveryInfo += ' (' + extra.join(' · ') + ')';
+      }
+
+      var statusOptions = Object.keys(orderStatusLabels).map(function (key) {
+        return '<option value="' + key + '"' + (o.status === key ? ' selected' : '') + '>' +
+          orderStatusLabels[key] + '</option>';
+      }).join('');
+
+      return (
+        '<li class="order-row" data-id="' + o.id + '">' +
+          '<div class="order-info">' +
+            '<div class="order-title">' + o.customer_name + ' · #' + String(o.id).slice(0, 8) + '</div>' +
+            '<div class="order-sub">' + o.customer_email + (createdLabel ? ' · ' + createdLabel : '') + '</div>' +
+            '<div class="order-sub">' + deliveryInfo + '</div>' +
+            '<div class="order-items">' + itemsHtml + '</div>' +
+          '</div>' +
+          '<div class="order-side">' +
+            '<div class="order-total">$' + Number(o.total).toLocaleString('es-MX') + ' MXN</div>' +
+            '<select class="order-status-select status-' + o.status + '">' + statusOptions + '</select>' +
+          '</div>' +
+        '</li>'
+      );
+    }).join('');
+
+    orderList.querySelectorAll('.order-row').forEach(function (row) {
+      var select = row.querySelector('.order-status-select');
+      select.addEventListener('change', async function () {
+        var id = row.getAttribute('data-id');
+        var newStatus = select.value;
+        select.className = 'order-status-select status-' + newStatus;
+        var updateResult = await client.from('orders').update({ status: newStatus }).eq('id', id);
+        if (updateResult.error) {
+          alert('No se pudo actualizar el estado: ' + updateResult.error.message);
+        }
+      });
+    });
+  }
+
   // -------- Carga inicial --------
   await loadCategories();
   await loadProducts();
   await loadEvents();
   await loadReviews();
   await loadPickupDates();
+  await loadOrders();
 });

@@ -25,6 +25,7 @@
   <button type="button" class="admin-tab" data-tab="eventos">Eventos</button>
   <button type="button" class="admin-tab" data-tab="resenas">Reseñas</button>
   <button type="button" class="admin-tab" data-tab="entregas">Entregas</button>
+  <button type="button" class="admin-tab" data-tab="pedidos">Pedidos</button>
 </nav>
 
 <main class="admin-main">
@@ -240,6 +241,14 @@
             <label for="pickup-date-input">Fecha</label>
             <input type="date" id="pickup-date-input" required>
           </div>
+          <div class="field">
+            <label for="pickup-time-input">Hora</label>
+            <input type="text" id="pickup-time-input" placeholder="Ej. 6:00 PM - 8:00 PM" required>
+          </div>
+          <div class="field">
+            <label for="pickup-location-input">Lugar</label>
+            <input type="text" id="pickup-location-input" placeholder="Ej. Plaza Fiesta San Agustín, Edo. Méx." required>
+          </div>
           <div class="form-actions">
             <button type="submit" class="btn-primary" id="pickup-date-submit-btn">Agregar fecha</button>
           </div>
@@ -251,6 +260,17 @@
         <h2>Fechas disponibles</h2>
         <ul class="admin-list" id="pickup-date-list"></ul>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ PEDIDOS ============ -->
+  <section class="admin-panel" id="panel-pedidos">
+    <div class="admin-card" style="max-width:100%;">
+      <h2>Pedidos</h2>
+      <p style="font-size:0.85rem; color:rgba(8,13,10,0.6); margin-bottom:16px;">
+        Todos los pedidos confirmados desde la página de pago, del más reciente al más antiguo.
+      </p>
+      <ul class="admin-list" id="order-list"></ul>
     </div>
   </section>
 

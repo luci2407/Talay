@@ -184,12 +184,13 @@ document.addEventListener('DOMContentLoaded', function () {
   if (deliveryPersonalInput) deliveryPersonalInput.addEventListener('change', toggleDeliveryUI);
 
   // Carga las fechas de entrega personal disponibles (configuradas desde el panel)
+  var pickupDatesInfo = {}; // { "2026-11-03": { pickup_time, location } }
   (async function loadPickupDates() {
     if (!pickupDateSelect || !window.supabaseClient) return;
     try {
       var result = await window.supabaseClient
         .from('pickup_dates')
-        .select('id, pickup_date')
+        .select('id, pickup_date, pickup_time, location')
         .order('pickup_date', { ascending: true });
 
       if (result.error) throw result.error;
@@ -204,6 +205,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var label = new Date(d.pickup_date + 'T00:00:00').toLocaleDateString('es-MX', {
           weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
         });
+        var extra = [];
+        if (d.pickup_time) extra.push(d.pickup_time);
+        if (d.location) extra.push(d.location);
+        if (extra.length) label += ' — ' + extra.join(' · ');
+        pickupDatesInfo[d.pickup_date] = { pickup_time: d.pickup_time || '', location: d.location || '' };
         return '<option value="' + d.pickup_date + '">' + label + '</option>';
       }).join('');
     } catch (err) {
@@ -345,6 +351,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       var total = getSubtotal() + shippingCost;
+      var pickupInfo = (!envio && pickupDateValue && pickupDatesInfo[pickupDateValue]) || {};
 
       btnConfirmOrder.disabled = true;
       btnConfirmOrder.textContent = 'Guardando pedido…';
@@ -359,7 +366,9 @@ document.addEventListener('DOMContentLoaded', function () {
             total: total,
             delivery_method: envio ? 'envio' : 'personal',
             shipping_cost: shippingCost,
-            pickup_date: pickupDateValue || null
+            pickup_date: pickupDateValue || null,
+            pickup_time: pickupInfo.pickup_time || null,
+            pickup_location: pickupInfo.location || null
           })
           .select()
           .single();
