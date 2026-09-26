@@ -8,10 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/pago.css">
-<link rel="icon" type="image/png" href="../pic/favicon.png">
 </head>
-
 <body>
+
 <header class="nav">
   <div class="nav-inner">
     <!-- Logo del navbar: reemplaza "logo.png" por la ruta a tu propio logo -->
@@ -87,10 +86,46 @@
           <p class="cart-empty" id="payment-empty">Tu carrito está vacío. Agrega productos desde la tienda antes de continuar.</p>
           <ul class="cart-items" id="payment-items"></ul>
           <div class="cart-total-row" id="payment-total-row">
-            <span>Total</span>
+            <span>Subtotal</span>
             <span id="payment-total">$0 MXN</span>
           </div>
+          <div class="cart-total-row" id="shipping-row" style="display:none;">
+            <span>Envío (Correos de México)</span>
+            <span id="shipping-cost-display">$65 MXN</span>
+          </div>
+          <div class="cart-total-row" id="grand-total-row">
+            <span><strong>Total a pagar</strong></span>
+            <span id="grand-total-display"><strong>$0 MXN</strong></span>
+          </div>
           <a href="productos.html" class="edit-order-link">← Editar mi pedido</a>
+        </div>
+
+        <!-- Forma de entrega -->
+        <div class="payment-summary-card" id="delivery-block">
+          <h4>Forma de entrega</h4>
+
+          <label class="delivery-option">
+            <input type="radio" name="delivery-method" value="envio" id="delivery-envio" checked>
+            <span>
+              <strong>Envío a domicilio</strong> (Correos de México - Tarda de 10 a 15 día hábiles en llegar)
+              <span class="delivery-option-price">+ $65 MXN</span>
+            </span>
+          </label>
+
+          <label class="delivery-option">
+            <input type="radio" name="delivery-method" value="personal" id="delivery-personal">
+            <span>
+              <strong>Entrega personal</strong>
+              <span class="delivery-option-price">Sin costo</span>
+            </span>
+          </label>
+
+          <div class="field" id="pickup-date-field" style="display:none;">
+            <label for="pickup-date-select">Elige una fecha de entrega</label>
+            <select id="pickup-date-select">
+              <option value="">Cargando fechas disponibles…</option>
+            </select>
+          </div>
         </div>
 
         <!-- Datos de contacto + confirmación del pedido, en su propio cuadro -->
@@ -127,23 +162,19 @@
         <div class="bank-data">
           <div class="bank-data-row">
             <span class="bank-label">Banco</span>
-            <span class="bank-value">Santander</span>
+            <span class="bank-value">BBVA</span>
           </div>
           <div class="bank-data-row">
             <span class="bank-label">Titular</span>
-            <span class="bank-value">Lucila Romero Alonso</span>
+            <span class="bank-value">Talay México</span>
           </div>
           <div class="bank-data-row">
             <span class="bank-label">CLABE interbancaria</span>
-            <span class="bank-value">014180140125812350</span>
+            <span class="bank-value">0000 0000 0000 0000 00</span>
           </div>
           <div class="bank-data-row">
             <span class="bank-label">Número de tarjeta (Oxxo/depósito)</span>
-            <span class="bank-value">5579 0870 0650 0166</span>
-          </div>
-          <div class="bank-data-row">
-            <span class="bank-label">Concepto</span>
-            <span class="bank-value">Coloca tu nombre</span>
+            <span class="bank-value">0000 0000 0000 0000</span>
           </div>
         </div>
 
@@ -155,9 +186,9 @@
             <li>
               Envía el comprobante al correo
               <a href="mailto:talayshop.mx@gmail.com">talayshop.mx@gmail.com</a>,
-              o al número +52 56 1174 4226 indicando tu nombre completo. <span id="email-order-note"></span> y los productos de tu pedido.
+              indicando tu nombre completo, tu número de pedido<span id="email-order-note"></span> y los productos de tu pedido.
             </li>
-            <li>En cuanto confirmemos tu pago, nos pondremos en contacto contigo.</li>
+            <li>En cuanto confirmemos tu pago, prepararemos tu pedido para envío.</li>
           </ol>
         </div>
 

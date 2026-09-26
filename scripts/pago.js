@@ -144,7 +144,73 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('payment-total-row'),
       document.getElementById('payment-total')
     );
+    updateGrandTotal();
   }
+
+  // -------- Forma de entrega (envío con costo, o entrega personal por fecha) --------
+  var SHIPPING_COST = 65;
+  var deliveryEnvioInput = document.getElementById('delivery-envio');
+  var deliveryPersonalInput = document.getElementById('delivery-personal');
+  var pickupDateField = document.getElementById('pickup-date-field');
+  var pickupDateSelect = document.getElementById('pickup-date-select');
+  var shippingRow = document.getElementById('shipping-row');
+  var grandTotalDisplay = document.getElementById('grand-total-display');
+
+  function getSubtotal() {
+    return cart.reduce(function (sum, item) { return sum + item.price * item.qty; }, 0);
+  }
+
+  function isEnvioSelected() {
+    return !deliveryPersonalInput || !deliveryPersonalInput.checked;
+  }
+
+  function updateGrandTotal() {
+    var subtotal = getSubtotal();
+    var envio = isEnvioSelected();
+    var shippingCost = envio ? SHIPPING_COST : 0;
+    var grandTotal = subtotal + shippingCost;
+
+    if (shippingRow) shippingRow.style.display = envio ? 'flex' : 'none';
+    if (grandTotalDisplay) grandTotalDisplay.innerHTML = '<strong>$' + grandTotal.toLocaleString('es-MX') + ' MXN</strong>';
+  }
+
+  function toggleDeliveryUI() {
+    var personal = deliveryPersonalInput && deliveryPersonalInput.checked;
+    if (pickupDateField) pickupDateField.style.display = personal ? 'block' : 'none';
+    updateGrandTotal();
+  }
+
+  if (deliveryEnvioInput) deliveryEnvioInput.addEventListener('change', toggleDeliveryUI);
+  if (deliveryPersonalInput) deliveryPersonalInput.addEventListener('change', toggleDeliveryUI);
+
+  // Carga las fechas de entrega personal disponibles (configuradas desde el panel)
+  (async function loadPickupDates() {
+    if (!pickupDateSelect || !window.supabaseClient) return;
+    try {
+      var result = await window.supabaseClient
+        .from('pickup_dates')
+        .select('id, pickup_date')
+        .order('pickup_date', { ascending: true });
+
+      if (result.error) throw result.error;
+      var dates = result.data || [];
+
+      if (dates.length === 0) {
+        pickupDateSelect.innerHTML = '<option value="">No hay fechas disponibles por ahora</option>';
+        return;
+      }
+
+      pickupDateSelect.innerHTML = dates.map(function (d) {
+        var label = new Date(d.pickup_date + 'T00:00:00').toLocaleDateString('es-MX', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+        return '<option value="' + d.pickup_date + '">' + label + '</option>';
+      }).join('');
+    } catch (err) {
+      pickupDateSelect.innerHTML = '<option value="">No se pudieron cargar las fechas</option>';
+      console.error('No se pudieron cargar las fechas de entrega:', err);
+    }
+  })();
 
   function addToCart(name, price) {
     var existing = cart.find(function (item) { return item.name === name; });
@@ -268,7 +334,17 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      var total = cart.reduce(function (sum, item) { return sum + item.price * item.qty; }, 0);
+      var envio = isEnvioSelected();
+      var shippingCost = envio ? SHIPPING_COST : 0;
+      var pickupDateValue = envio ? null : (pickupDateSelect ? pickupDateSelect.value : '');
+
+      if (!envio && !pickupDateValue) {
+        confirmOrderMessage.textContent = 'Elige una fecha para tu entrega personal.';
+        confirmOrderMessage.className = 'form-message error';
+        return;
+      }
+
+      var total = getSubtotal() + shippingCost;
 
       btnConfirmOrder.disabled = true;
       btnConfirmOrder.textContent = 'Guardando pedido…';
@@ -280,7 +356,10 @@ document.addEventListener('DOMContentLoaded', function () {
             customer_name: name,
             customer_email: email,
             status: 'pendiente',
-            total: total
+            total: total,
+            delivery_method: envio ? 'envio' : 'personal',
+            shipping_cost: shippingCost,
+            pickup_date: pickupDateValue || null
           })
           .select()
           .single();

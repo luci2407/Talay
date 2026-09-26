@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="admin.css">
-<link rel="icon" type="image/png" href="../pic/favicon.png">
 </head>
 <body>
 
@@ -25,6 +24,7 @@
   <button type="button" class="admin-tab" data-tab="productos">Productos</button>
   <button type="button" class="admin-tab" data-tab="eventos">Eventos</button>
   <button type="button" class="admin-tab" data-tab="resenas">Reseñas</button>
+  <button type="button" class="admin-tab" data-tab="entregas">Entregas</button>
 </nav>
 
 <main class="admin-main">
@@ -223,6 +223,33 @@
       <div class="admin-card">
         <h2>Reseñas</h2>
         <ul class="admin-list" id="review-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ENTREGAS (fechas de entrega personal) ============ -->
+  <section class="admin-panel" id="panel-entregas">
+    <div class="admin-grid">
+      <div class="admin-card">
+        <h2>Agregar fecha de entrega personal</h2>
+        <p style="font-size:0.85rem; color:rgba(8,13,10,0.6); margin-bottom:16px;">
+          Estas fechas son las que el cliente puede elegir en la página de pago cuando escoge "Entrega personal".
+        </p>
+        <form id="pickup-date-form">
+          <div class="field">
+            <label for="pickup-date-input">Fecha</label>
+            <input type="date" id="pickup-date-input" required>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="pickup-date-submit-btn">Agregar fecha</button>
+          </div>
+          <p class="form-message" id="pickup-date-message"></p>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <h2>Fechas disponibles</h2>
+        <ul class="admin-list" id="pickup-date-list"></ul>
       </div>
     </div>
   </section>

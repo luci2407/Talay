@@ -521,6 +521,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   var reviewPhotoCurrent = document.getElementById('review-photo-current');
   var reviewPhotoPreview = document.getElementById('review-photo-preview');
   var reviewApprovedInput = document.getElementById('review-approved');
+  var reviewFeaturedInput = document.getElementById('review-featured');
   var reviewFormTitle = document.getElementById('review-form-title');
   var reviewSubmitBtn = document.getElementById('review-submit-btn');
   var reviewCancelBtn = document.getElementById('review-cancel-btn');
@@ -535,6 +536,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     reviewPhotoPreview.src = '';
     reviewPhotoPreview.style.display = 'none';
     reviewApprovedInput.checked = true;
+    reviewFeaturedInput.checked = false;
     reviewFormTitle.textContent = 'Nueva reseña';
     reviewSubmitBtn.textContent = 'Guardar reseña';
     reviewCancelBtn.style.display = 'none';
@@ -551,6 +553,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     reviewList.innerHTML = reviews.length
       ? reviews.map(function (rev) {
           var visLabel = rev.approved ? 'Visible' : 'Oculta';
+          var featuredTag = rev.featured ? ' · ★ Destacada' : '';
           return (
             '<li class="admin-row" data-id="' + rev.id + '">' +
               (rev.photo_url
@@ -558,7 +561,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 : '<div style="width:44px;height:44px;border-radius:10px;background:var(--sky);flex-shrink:0;"></div>') +
               '<div class="row-info">' +
                 '<div class="row-title">' + rev.customer_name + ' · ' + '★'.repeat(rev.rating) + '</div>' +
-                '<div class="row-sub">' + visLabel + ' — ' + (rev.comment || '').slice(0, 60) + '</div>' +
+                '<div class="row-sub">' + visLabel + featuredTag + ' — ' + (rev.comment || '').slice(0, 60) + '</div>' +
               '</div>' +
               '<div class="row-actions">' +
                 '<button type="button" class="icon-action edit-review" aria-label="Editar">✎</button>' +
@@ -580,6 +583,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         reviewCommentInput.value = rev.comment || '';
         reviewPhotoCurrent.value = rev.photo_url || '';
         reviewApprovedInput.checked = !!rev.approved;
+        reviewFeaturedInput.checked = !!rev.featured;
         if (rev.photo_url) {
           reviewPhotoPreview.src = rev.photo_url;
           reviewPhotoPreview.style.display = 'block';
@@ -633,12 +637,26 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
     }
 
+    // Límite de 3 reseñas destacadas en el inicio
+    if (reviewFeaturedInput.checked) {
+      var countQuery = client.from('reviews').select('id', { count: 'exact', head: true }).eq('featured', true);
+      if (isEditing) countQuery = countQuery.neq('id', reviewEditingId.value);
+      var countResult = await countQuery;
+      if (!countResult.error && (countResult.count || 0) >= 3) {
+        showMessage(reviewMessage, 'Ya tienes 3 reseñas destacadas en el inicio. Quita una antes de agregar otra.', true);
+        reviewSubmitBtn.disabled = false;
+        reviewSubmitBtn.textContent = isEditing ? 'Actualizar reseña' : 'Guardar reseña';
+        return;
+      }
+    }
+
     var payload = {
       customer_name: reviewNameInput.value.trim(),
       rating: parseInt(reviewRatingInput.value, 10),
       comment: reviewCommentInput.value.trim(),
       photo_url: photoValue || null,
-      approved: reviewApprovedInput.checked
+      approved: reviewApprovedInput.checked,
+      featured: reviewFeaturedInput.checked
     };
 
     var result = isEditing
@@ -657,9 +675,78 @@ document.addEventListener('DOMContentLoaded', async function () {
     loadReviews();
   });
 
+  // ============================================================
+  // ENTREGAS (fechas de entrega personal)
+  // ============================================================
+  var pickupForm = document.getElementById('pickup-date-form');
+  var pickupList = document.getElementById('pickup-date-list');
+  var pickupDateInput = document.getElementById('pickup-date-input');
+  var pickupSubmitBtn = document.getElementById('pickup-date-submit-btn');
+  var pickupMessage = document.getElementById('pickup-date-message');
+
+  async function loadPickupDates() {
+    var result = await client.from('pickup_dates').select('*').order('pickup_date', { ascending: true });
+    if (result.error) {
+      pickupList.innerHTML = '<li class="admin-empty">No se pudieron cargar las fechas.</li>';
+      return;
+    }
+    var dates = result.data || [];
+
+    pickupList.innerHTML = dates.length
+      ? dates.map(function (d) {
+          var label = new Date(d.pickup_date + 'T00:00:00').toLocaleDateString('es-MX', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+          });
+          return (
+            '<li class="admin-row" data-id="' + d.id + '">' +
+              '<div class="row-info"><div class="row-title">' + label + '</div></div>' +
+              '<div class="row-actions">' +
+                '<button type="button" class="icon-action danger delete-pickup-date" aria-label="Borrar">✕</button>' +
+              '</div>' +
+            '</li>'
+          );
+        }).join('')
+      : '<li class="admin-empty">Todavía no hay fechas de entrega personal.</li>';
+
+    pickupList.querySelectorAll('.delete-pickup-date').forEach(function (btn) {
+      btn.addEventListener('click', async function () {
+        var id = btn.closest('.admin-row').getAttribute('data-id');
+        if (!confirm('¿Borrar esta fecha de entrega?')) return;
+        var delResult = await client.from('pickup_dates').delete().eq('id', id);
+        if (delResult.error) {
+          alert('No se pudo borrar: ' + delResult.error.message);
+          return;
+        }
+        loadPickupDates();
+      });
+    });
+  }
+
+  pickupForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (!pickupDateInput.value) return;
+
+    pickupSubmitBtn.disabled = true;
+    pickupSubmitBtn.textContent = 'Guardando…';
+
+    var result = await client.from('pickup_dates').insert({ pickup_date: pickupDateInput.value });
+
+    pickupSubmitBtn.disabled = false;
+    pickupSubmitBtn.textContent = 'Agregar fecha';
+
+    if (result.error) {
+      showMessage(pickupMessage, result.error.message, true);
+      return;
+    }
+    showMessage(pickupMessage, 'Fecha agregada.', false);
+    pickupForm.reset();
+    loadPickupDates();
+  });
+
   // -------- Carga inicial --------
   await loadCategories();
   await loadProducts();
   await loadEvents();
   await loadReviews();
+  await loadPickupDates();
 });

@@ -462,6 +462,29 @@
   #confirm-order-block .field input:focus{border-color:var(--blue);}
   #confirm-order-block .btn-pay{margin-top:4px;}
 
+  /* "Forma de entrega" */
+  .delivery-option{
+    display:flex; align-items:flex-start; gap:10px; padding:12px 14px; margin-bottom:10px;
+    border:1.5px solid rgba(8,13,10,0.12); border-radius:14px; cursor:pointer;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .delivery-option:has(input:checked){border-color:var(--blue); background:var(--sky);}
+  .delivery-option input{margin-top:3px; accent-color:var(--blue); flex-shrink:0;}
+  .delivery-option span{font-size:0.9rem; line-height:1.5; color:rgba(8,13,10,0.8);}
+  .delivery-option-price{display:block; font-size:0.82rem; color:var(--blue-deep); font-weight:700; margin-top:2px;}
+
+  #delivery-block .field{margin-top:14px; display:flex; flex-direction:column; gap:6px;}
+  #delivery-block .field label{font-size:0.8rem; font-weight:600; color:rgba(8,13,10,0.7);}
+  #delivery-block select{
+    width:100%; box-sizing:border-box; font-family:inherit; font-size:0.92rem;
+    padding:12px 14px; border-radius:14px; border:1px solid rgba(8,13,10,0.18);
+    outline:none; color:var(--ink); background:#fff; transition:border-color .2s ease;
+  }
+  #delivery-block select:focus{border-color:var(--blue);}
+
+  #shipping-row{color:rgba(8,13,10,0.65); font-size:0.88rem;}
+  #grand-total-row{margin-top:4px; padding-top:14px; border-top:1px solid rgba(8,13,10,0.1);}
+
   .order-confirmed-block{background:var(--sky); text-align:center;}
   .order-confirmed-block h4{margin-bottom:8px;}
   .order-confirmed-block p{font-size:0.85rem; color:rgba(8,13,10,0.7);}
