@@ -16,7 +16,7 @@ window.TALAY_REVIEWS = [];
 
     var result = await client
       .from('reviews')
-      .select('id, customer_name, rating, comment, photo_url, created_at')
+      .select('id, customer_name, rating, comment, photo_url, featured, created_at')
       .eq('approved', true)
       .order('created_at', { ascending: false });
 
