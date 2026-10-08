@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Buscar — Talay</title>
+<title>Artículo — Talay</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/buscar.css">
+<link rel="stylesheet" href="../css/articulo.css">
 <link rel="icon" type="image/png" href="../pic/favicon.png">
 </head>
 <body>
@@ -21,7 +21,7 @@
     <nav class="nav-links">
       <a href="productos.html">Categorías</a>
       <a href="sobre-nosotros.html">Sobre nosotros</a>
-        <a href="blog.html">Blog</a>
+      <a href="blog.html">Blog</a>
       <a href="contacto.html">Contacto</a>
     </nav>
     <form class="nav-search" id="nav-search-form" role="search">
@@ -65,69 +65,34 @@
   <nav class="mobile-menu" id="mobile-menu">
     <a href="productos.html">Categorías</a>
     <a href="sobre-nosotros.html">Sobre nosotros</a>
-      <a href="blog.html">Blog</a>
+    <a href="blog.html">Blog</a>
     <a href="contacto.html">Contacto</a>
     <a href="#" id="mobile-cart">Carrito</a>
   </nav>
 </header>
 
-<div class="wrap breadcrumb">
-  <a href="productos.html">Categorías</a>
-  <span>/</span>
-  <span class="current">Buscar</span>
-</div>
-
-<section class="category-hero">
+<!-- Esta misma plantilla sirve para cualquier artículo: solo cambia el parámetro ?slug= en el enlace que llega aquí -->
+<section class="article-hero" id="article-hero">
   <div class="wrap">
-    <span class="hero-eyebrow">Talay · buscar</span>
-    <h1 id="search-title">Resultados de búsqueda</h1>
-    <p class="sub" id="search-subtitle"></p>
+    <p class="breadcrumb"><a href="blog.html">Blog</a> / <span id="art-breadcrumb-current">Artículo</span></p>
+    <span class="article-hero-date" id="art-date" style="display:none;"></span>
+    <h1 id="art-title">Cargando…</h1>
+    <p class="article-author" id="art-author" style="display:none;"></p>
   </div>
 </section>
 
-<section class="products">
+<section class="article-section">
   <div class="wrap">
-    <!-- Esta cuadrícula se llena dinámicamente con UNA sola plantilla de tarjeta,
-         filtrando window.TALAY_PRODUCTS según el texto buscado (?q= en la URL). -->
-    <div class="product-grid" id="search-product-grid"></div>
-
-    <p class="cart-empty" id="search-empty-state" style="display:none; text-align:center; margin-top:20px;">
-      No encontramos productos que coincidan con tu búsqueda.
+    <img class="article-cover" id="art-cover" style="display:none;" alt="">
+    <div class="article-body" id="art-body"></div>
+    <p class="article-not-found" id="art-not-found" style="display:none;">
+      No encontramos este artículo. Puede que ya no esté disponible o el enlace esté incompleto.
     </p>
-
-    <div class="explore-wrap">
-      <a href="productos.html" class="btn-explore" style="text-decoration:none; display:inline-block;">Ver todas las categorías</a>
+    <div class="article-back-wrap">
+      <a class="article-back" href="blog.html">← Volver al blog</a>
     </div>
   </div>
 </section>
-
-<!-- Ventana rápida de producto: se llena dinámicamente desde window.TALAY_PRODUCTS -->
-<div class="quick-view-overlay" id="quick-view-overlay">
-  <div class="quick-view-modal" role="dialog" aria-modal="true" aria-labelledby="qv-title">
-    <button type="button" class="quick-view-close" id="quick-view-close" aria-label="Cerrar">✕</button>
-    <div class="quick-view-grid">
-      <div class="quick-view-media">
-        <img src="" alt="" id="qv-image">
-      </div>
-      <div class="quick-view-info">
-        <span class="product-detail-tag" id="qv-category"></span>
-        <h3 id="qv-title"></h3>
-        <div class="product-detail-price" id="qv-price"></div>
-        <p class="quick-view-desc" id="qv-description"></p>
-
-        <div class="product-buy-row">
-          <div class="qty-controls" id="qv-qty-controls">
-            <button type="button" class="qty-btn qty-minus" aria-label="Reducir cantidad">−</button>
-            <span class="qty-value" id="qv-qty-value">1</span>
-            <button type="button" class="qty-btn qty-plus" aria-label="Aumentar cantidad">+</button>
-          </div>
-          <button type="button" class="btn-pay btn-add-to-cart" id="qv-add-btn">Añadir al carrito</button>
-        </div>
-        <p class="add-confirmation" id="qv-confirmation"></p>
-      </div>
-    </div>
-  </div>
-</div>
 
 <footer id="site-footer"></footer>
 <script>
@@ -139,7 +104,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="../scripts/supabase-client.js"></script>
-<script src="../scripts/products-data.js"></script>
-<script src="../scripts/buscar.js"></script>
+<script src="../scripts/articles-data.js"></script>
+<script src="../scripts/articulo.js"></script>
 </body>
 </html>

@@ -26,6 +26,7 @@
   <button type="button" class="admin-tab" data-tab="resenas">Reseñas</button>
   <button type="button" class="admin-tab" data-tab="entregas">Entregas</button>
   <button type="button" class="admin-tab" data-tab="pedidos">Pedidos</button>
+  <button type="button" class="admin-tab" data-tab="blog">Blog</button>
 </nav>
 
 <main class="admin-main">
@@ -271,6 +272,60 @@
         Todos los pedidos confirmados desde la página de pago, del más reciente al más antiguo.
       </p>
       <ul class="admin-list" id="order-list"></ul>
+    </div>
+  </section>
+
+  <!-- ============ BLOG ============ -->
+  <section class="admin-panel" id="panel-blog">
+    <div class="admin-grid">
+      <div class="admin-card">
+        <h2 id="art-form-title">Nuevo artículo</h2>
+        <form id="art-form">
+          <input type="hidden" id="art-editing-id" value="">
+          <div class="field">
+            <label for="art-title">Título</label>
+            <input type="text" id="art-title" required>
+          </div>
+          <div class="field">
+            <label for="art-slug">Slug (parte de la URL, ej. "mi-primer-articulo")</label>
+            <input type="text" id="art-slug" required>
+          </div>
+          <div class="field">
+            <label for="art-author">Autor (opcional)</label>
+            <input type="text" id="art-author" placeholder="Ej. Equipo Talay">
+          </div>
+          <div class="field">
+            <label for="art-cover-file">Imagen de portada (PNG o JPG)</label>
+            <img id="art-cover-preview" class="image-preview" style="display:none;" alt="Vista previa">
+            <input type="file" id="art-cover-file" accept="image/png, image/jpeg">
+            <input type="hidden" id="art-cover-current" value="">
+          </div>
+          <div class="field">
+            <label for="art-excerpt">Extracto (resumen corto que aparece en la lista del blog)</label>
+            <textarea id="art-excerpt" rows="2"></textarea>
+          </div>
+          <div class="field">
+            <label for="art-content">Contenido completo</label>
+            <textarea id="art-content" rows="10" required></textarea>
+          </div>
+          <div class="field">
+            <label style="display:flex; align-items:center; gap:8px; font-weight:600;">
+              <input type="checkbox" id="art-published" checked style="width:auto;">
+              Publicado (visible en el sitio)
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="art-submit-btn">Guardar artículo</button>
+            <button type="button" class="btn-secondary" id="art-cancel-btn" style="display:none;">Cancelar</button>
+          </div>
+          <p class="form-message" id="art-message"></p>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <h2>Artículos</h2>
+        <ul class="admin-list" id="art-list"></ul>
+      </div>
     </div>
   </section>
 

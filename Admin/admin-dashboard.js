@@ -860,6 +860,187 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
   }
 
+  // ============================================================
+  // BLOG (artículos)
+  // ============================================================
+  var artForm = document.getElementById('art-form');
+  var artList = document.getElementById('art-list');
+  var artEditingId = document.getElementById('art-editing-id');
+  var artTitleInput = document.getElementById('art-title');
+  var artSlugInput = document.getElementById('art-slug');
+  var artAuthorInput = document.getElementById('art-author');
+  var artCoverFile = document.getElementById('art-cover-file');
+  var artCoverPreview = document.getElementById('art-cover-preview');
+  var artCoverCurrent = document.getElementById('art-cover-current');
+  var artExcerptInput = document.getElementById('art-excerpt');
+  var artContentInput = document.getElementById('art-content');
+  var artPublishedInput = document.getElementById('art-published');
+  var artFormTitle = document.getElementById('art-form-title');
+  var artSubmitBtn = document.getElementById('art-submit-btn');
+  var artCancelBtn = document.getElementById('art-cancel-btn');
+  var artMessage = document.getElementById('art-message');
+
+  wireImagePreview(artCoverFile, artCoverPreview);
+
+  // Convierte el título en un slug (ej. "¡Hola Mundo!" → "hola-mundo");
+  // solo se auto-rellena mientras el usuario no haya tocado el campo "Slug" a mano.
+  var slugTouchedByUser = false;
+  artSlugInput.addEventListener('input', function () { slugTouchedByUser = true; });
+  function slugify(text) {
+    return (text || '')
+      .toString()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '') // quita acentos
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
+  }
+  artTitleInput.addEventListener('input', function () {
+    if (!slugTouchedByUser && !artEditingId.value) {
+      artSlugInput.value = slugify(artTitleInput.value);
+    }
+  });
+
+  function resetArtForm() {
+    artForm.reset();
+    artEditingId.value = '';
+    artCoverCurrent.value = '';
+    artCoverPreview.src = '';
+    artCoverPreview.style.display = 'none';
+    artPublishedInput.checked = true;
+    slugTouchedByUser = false;
+    artFormTitle.textContent = 'Nuevo artículo';
+    artSubmitBtn.textContent = 'Guardar artículo';
+    artCancelBtn.style.display = 'none';
+  }
+
+  async function loadArticles() {
+    var result = await client
+      .from('articles')
+      .select('id, slug, title, excerpt, content, cover_image, author, published, created_at')
+      .order('created_at', { ascending: false });
+
+    if (result.error) {
+      artList.innerHTML = '<li class="admin-empty">No se pudieron cargar los artículos.</li>';
+      return;
+    }
+    var articles = result.data || [];
+
+    artList.innerHTML = articles.length
+      ? articles.map(function (a) {
+          var statusTag = a.published ? ' · Publicado' : ' · Borrador';
+          var dateLabel = a.created_at
+            ? new Date(a.created_at).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })
+            : '';
+          return (
+            '<li class="admin-row" data-id="' + a.id + '">' +
+              '<img src="' + resolveImageSrc(a.cover_image) + '" alt="">' +
+              '<div class="row-info">' +
+                '<div class="row-title">' + a.title + '</div>' +
+                '<div class="row-sub">' + dateLabel + statusTag + '</div>' +
+              '</div>' +
+              '<div class="row-actions">' +
+                '<button type="button" class="icon-action edit-art" aria-label="Editar">✎</button>' +
+                '<button type="button" class="icon-action danger delete-art" aria-label="Borrar">✕</button>' +
+              '</div>' +
+            '</li>'
+          );
+        }).join('')
+      : '<li class="admin-empty">Todavía no hay artículos.</li>';
+
+    artList.querySelectorAll('.edit-art').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.closest('.admin-row').getAttribute('data-id');
+        var article = articles.find(function (a) { return a.id === id; });
+        if (!article) return;
+        artEditingId.value = article.id;
+        artTitleInput.value = article.title || '';
+        artSlugInput.value = article.slug || '';
+        artAuthorInput.value = article.author || '';
+        artCoverCurrent.value = article.cover_image || '';
+        if (article.cover_image) {
+          artCoverPreview.src = resolveImageSrc(article.cover_image);
+          artCoverPreview.style.display = 'block';
+        } else {
+          artCoverPreview.style.display = 'none';
+        }
+        artExcerptInput.value = article.excerpt || '';
+        artContentInput.value = article.content || '';
+        artPublishedInput.checked = !!article.published;
+        slugTouchedByUser = true;
+        artFormTitle.textContent = 'Editar artículo';
+        artSubmitBtn.textContent = 'Actualizar artículo';
+        artCancelBtn.style.display = 'inline-block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    artList.querySelectorAll('.delete-art').forEach(function (btn) {
+      btn.addEventListener('click', async function () {
+        var id = btn.closest('.admin-row').getAttribute('data-id');
+        if (!confirm('¿Borrar este artículo?')) return;
+        var delResult = await client.from('articles').delete().eq('id', id);
+        if (delResult.error) {
+          alert('No se pudo borrar: ' + delResult.error.message);
+          return;
+        }
+        loadArticles();
+      });
+    });
+  }
+
+  artCancelBtn.addEventListener('click', resetArtForm);
+
+  artForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var isEditing = !!artEditingId.value;
+
+    var coverValue = artCoverCurrent.value; // mantiene la imagen existente si no se elige una nueva
+    var newFile = artCoverFile.files[0];
+    if (newFile) {
+      artSubmitBtn.disabled = true;
+      artSubmitBtn.textContent = 'Subiendo imagen…';
+      try {
+        coverValue = await uploadImage(newFile, (artSlugInput.value.trim() || 'articulo'));
+      } catch (uploadErr) {
+        showMessage(artMessage, 'No se pudo subir la imagen: ' + uploadErr.message, true);
+        artSubmitBtn.disabled = false;
+        artSubmitBtn.textContent = isEditing ? 'Actualizar artículo' : 'Guardar artículo';
+        return;
+      }
+    }
+
+    var payload = {
+      title: artTitleInput.value.trim(),
+      slug: slugify(artSlugInput.value.trim()) || slugify(artTitleInput.value.trim()),
+      author: artAuthorInput.value.trim() || null,
+      cover_image: coverValue || null,
+      excerpt: artExcerptInput.value.trim(),
+      content: artContentInput.value.trim(),
+      published: artPublishedInput.checked
+    };
+
+    var result = isEditing
+      ? await client.from('articles').update(payload).eq('id', artEditingId.value)
+      : await client.from('articles').insert(payload);
+
+    artSubmitBtn.disabled = false;
+
+    if (result.error) {
+      artSubmitBtn.textContent = isEditing ? 'Actualizar artículo' : 'Guardar artículo';
+      if (result.error.message && result.error.message.indexOf('duplicate') !== -1) {
+        showMessage(artMessage, 'Ya existe un artículo con ese slug. Usa uno distinto.', true);
+      } else {
+        showMessage(artMessage, result.error.message, true);
+      }
+      return;
+    }
+    showMessage(artMessage, isEditing ? 'Artículo actualizado.' : 'Artículo creado.', false);
+    resetArtForm();
+    loadArticles();
+  });
+
   // -------- Carga inicial --------
   await loadCategories();
   await loadProducts();
@@ -867,4 +1048,5 @@ document.addEventListener('DOMContentLoaded', async function () {
   await loadReviews();
   await loadPickupDates();
   await loadOrders();
+  await loadArticles();
 });
